@@ -1,0 +1,56 @@
+---
+#Downloadning app
+  - name: Installing git
+    yum:
+      name: git
+      state: present
+
+  - name: safe dir for git
+    command: git config --global --add safe.directory /opt/webserver
+
+  - name: Repo cloning
+    git:
+      repo: "{{ repo_url }}"
+      dest: "{{ app_dir }}"
+      version: main
+      update: yes
+      force: yes
+      accept_hostkey: yes
+  
+  - name: Change permissions for files
+    file:
+      dest: "/opt/webserver"
+      owner: 'flask_user'
+      group: 'flask_user'
+      mode: u=rwX,g=rX,o=rX
+      recurse: true
+
+  - name: Install python dependencies
+    pip:
+      requirements: /opt/webserver/requirements.txt
+    
+
+
+#Creating systemd and logs for app
+
+  - name: Creating log catalog
+    file:
+      path: "{{ log_dir }}"
+      state: directory
+      owner: "{{ user_name }}"
+      group: "{{ group_name }}"
+      mode: "0700"
+  
+  - name: Creating systemd for application
+    template:
+      src: flask_app.service.j2
+      dest: /etc/systemd/system/flask_app.service
+    notify:
+      - Reload systemd
+  
+
+  - name: Starting app
+    systemd:
+      name: flask_app
+      enabled: yes
+      state: started

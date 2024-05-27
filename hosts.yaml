@@ -1,0 +1,9 @@
+all:
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/hehs:)
+  children:
+    webservers:
+      hosts:
+        aws-ec2-instance:
+          ansible_host: 18.192.5.124
+          ansible_user: notforu:)

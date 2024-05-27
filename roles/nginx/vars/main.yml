@@ -1,0 +1,4 @@
+---
+  app_name: flask_app
+  app_port: 5000
+  app_dir: /opt/webserver

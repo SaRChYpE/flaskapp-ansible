@@ -1,0 +1,6 @@
+---
+  repo_url: https://github.com/SaRChYpE/flask_app.git
+  app_dir: /opt/webserver
+  log_dir: /var/log/flask_app
+  user_name: flask_user
+  group_name: flask_user

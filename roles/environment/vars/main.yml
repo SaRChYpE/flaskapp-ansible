@@ -1,0 +1,5 @@
+---
+  user_name: flask_user
+  group_name: flask_user
+  app_dir: /opt/webserver
+  

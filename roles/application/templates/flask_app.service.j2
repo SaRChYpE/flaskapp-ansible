@@ -1,0 +1,16 @@
+[Unit]
+Description=Flask application
+After=network.target
+
+[Service]
+User={{ user_name }}
+Group={{ group_name }}
+WorkingDirectory={{ app_dir }}
+ExecStart=/usr/bin/python3 -m flask run
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=flask_app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+---
+  - name: Nginx installation
+    package:
+      name: nginx
+      state: present
+
+  - name: Creating nginx.conf
+    template:
+      src: flask_app_nginx.conf.j2
+      dest: /etc/nginx/nginx.conf
+    notify:
+      - Start Nginx
